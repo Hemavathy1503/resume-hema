@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hemavathy S - Portfolio</title>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f7fa;
+      color: #333;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Hamburger Button */
+    .menu-btn {
+      position: fixed;
+      top: 18px;
+      left: 20px;
+      z-index: 200;
+      width: 35px;
+      height: 28px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .menu-btn div {
+      width: 100%;
+      height: 4px;
+      background: #ffffff;
+      border-radius: 2px;
+      transition: 0.4s;
+    }
+
+    /* Side Panel Navigation */
+    .side-panel {
+      position: fixed;
+      top: 0;
+      left: -260px;
+      width: 260px;
+      height: 100vh;
+      background: #0f1c2e;
+      padding: 80px 20px;
+      transition: 0.4s ease;
+      z-index: 150;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+    }
+    .side-panel.open {
+      left: 0;
+    }
+    .side-panel ul {
+      list-style: none;
+      margin-top: 20px;
+    }
+    .side-panel ul li {
+      margin-bottom: 25px;
+    }
+    .side-panel ul li a {
+      color: #ffffff;
+      font-size: 1.2rem;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+    .side-panel ul li a:hover {
+      color: #4ba3ff;
+      margin-left: 5px;
+    }
+
+    /* Overlay */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      backdrop-filter: blur(3px);
+      background: rgba(0,0,0,0.4);
+      z-index: 100;
+      display: none;
+    }
+    .overlay.show {
+      display: block;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #0f1c2e, #355c9c);
+      color: #fff;
+      text-align: center;
+      padding: 100px 20px;
+    }
+    header h1 { font-size: 3.2rem; margin-bottom: 15px; }
+    header p { font-size: 1.3rem; opacity: 0.9; }
+
+    /* Sections */
+    .section {
+      max-width: 1000px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+    .section h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #0f1c2e;
+      border-left: 6px solid #355c9c;
+      padding-left: 15px;
+      font-weight: bold;
+    }
+
+    .card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+      margin-top: 20px;
+      transition: 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+    }
+
+    ul li { margin-bottom: 12px; }
+
+    /* Collapsible Project Section */
+    /* ----- PROJECT LIST ENHANCEMENTS ----- */
+
+.project-content ul {
+  list-style: none;
+  padding-left: 20px;
+}
+
+.project-content ul li {
+  position: relative;
+  margin-bottom: 10px;
+  padding-left: 25px;
+  line-height: 1.6;
+}
+
+/* Icon bullet */
+.project-content ul li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  font-size: 16px;
+  color: #355c9c;
+  font-weight: bold;
+}
+
+/* Sub lists use different icon */
+.project-content ul ul li::before {
+  content: "•";
+  font-size: 18px;
+  color: #0f1c2e;
+}
+
+/* Better animation */
+.project-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, padding 0.3s ease;
+  background: #f8faff;
+  border-radius: 10px;
+  margin-top: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.project-content.open {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-left: 4px solid #355c9c;
+}
+
+/* Title hover effect */
+.project-title {
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 12px 10px;
+  margin-top: 10px;
+  border-radius: 6px;
+  transition: 0.3s ease;
+}
+
+.project-title:hover {
+  background: #eef5ff;
+  color: #355c9c;
+}
+
+
+    /* ---------------- EDUCATION TIMELINE ---------------- */
+    .timeline {
+      position: relative;
+      margin-left: 20px;
+      padding-left: 25px;
+      border-left: 3px solid #355c9c;
+    }
+    .timeline-item {
+      margin-bottom: 30px;
+      position: relative;
+    }
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -35px;
+      top: 4px;
+      width: 14px;
+      height: 14px;
+      background: #0f1c2e;
+      border: 3px solid #355c9c;
+      border-radius: 50%;
+      box-shadow: 0 0 5px rgba(53,92,156,0.3);
+    }
+    .timeline-item strong {
+      font-size: 1.05rem;
+      color: #0f1c2e;
+    }
+    .timeline-item em {
+      color: #355c9c;
+      font-weight: 600;
+      font-style: normal;
+    }
+
+    /* Certificate List */
+    .certificate-list li {
+      margin-bottom: 12px;
+      padding: 10px 15px;
+      background: #f8faff;
+      border-left: 4px solid #355c9c;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      transition: 0.3s ease;
+    }
+    .certificate-list li:hover {
+      background: #eef5ff;
+      transform: translateX(4px);
+    }
+
+    /* Footer */
+    footer {
+      background: #0f1c2e;
+      color: white;
+      text-align: center;
+      padding: 25px;
+      margin-top: 60px;
+      letter-spacing: 0.5px;
+    }
+    /* Print Settings */
+@media print {
+
+  /* Hide navigation menu, buttons, and overlay during PDF */
+  .menu-btn, .side-panel, .overlay {
+    display: none !important;
+  }
+
+  /* Expand all project sections automatically */
+  .project-content {
+    max-height: none !important;
+    padding: 15px !important;
+  }
+
+  /* Remove shadows for clean PDF */
+  .card {
+    box-shadow: none !important;
+  }
+
+  /* Print background colors */
+  body {
+    -webkit-print-color-adjust: exact;
+  }
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- Hamburger Menu -->
+  <div class="menu-btn" id="menuBtn">
+    <div></div><div></div><div></div>
+  </div>
+
+  <!-- Side Panel -->
+  <div class="side-panel" id="sidePanel">
+    <ul>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#skills" class="nav-link">Skills</a></li>
+      <li><a href="#experience" class="nav-link">Experience</a></li>
+      <li><a href="#education" class="nav-link">Education</a></li>
+      <li><a href="#certificates" class="nav-link">Certificates</a></li>
+      <li><a href="#projects" class="nav-link">Projects</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+      <li><a href="#" class="nav-link" id="downloadResume">Download Resume (PDF)</a></li>
+
+    </ul>
+  </div>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay"></div>
+
+  <header>
+    <h1>Hemavathy S</h1>
+    <p>MCA Final-Year Student | Machine Learning Enthusiast | Developer | Data Analyst</p>
+  </header>
+
+  <!-- Contact Section -->
+  <div class="section" id="contact">
+    <h2>Contact Information</h2>
+    <div class="card">
+      <p><strong>Email:</strong> <a href="mailto:shemavathy20@gmail.com">shemavathy20@gmail.com</a></p>
+      <p><strong>LinkedIn:</strong> 
+        <a href="https://linkedin.com/in/hemavathy-s-38275b292" target="_blank">
+          linkedin.com/in/hemavathy-s-38275b292
+        </a>
+      </p>
+      <p><strong>Github:</strong> 
+        <a href="https://github.com/Hemavathy1503" target="_blank">
+          https://github.com/Hemavathy1503
+        </a>
+      </p>
+      <p><strong>Location:</strong> Chennai, India</p>
+    </div>
+  </div>
+
+  <!-- About -->
+  <div class="section" id="about">
+    <h2>About Me</h2>
+    <div class="card">
+      <p>A highly motivated and enthusiastic professional with a strong 
+passion for continuous learning and development. Committed to 
+leveraging my skills to contribute effectively to a dynamic team, 
+while growing personally and professionally in a challenging, fast-
+paced environment. Eager to make a meaningful impact and 
+drive success through collaboration and innovation.</p>
+    </div>
+  </div>
+
+  <!-- Skills -->
+  <div class="section" id="skills">
+    <h2>Skills</h2>
+    <div class="card">
+      <ul>
+      <li><strong>Data Analysis & Visualization:</strong> Microsoft Excel (Advanced: Pivot Tables, VLOOKUP, Macros), SQL (Intermediate), Power BI / Tableau (Basic Proficiency).</li>
+      <li><strong>Programming Languages:</strong> C++, Java, Python</li>
+      <li><strong>Web Development:</strong> HTML, CSS, JavaScript, PHP</li>
+      <li><strong>Machine Learning:</strong> Supervised & Unsupervised Algorithms, Model Evaluation</li>
+      <li><strong>Frameworks & Tools:</strong> Streamlit, Scikit-learn, NumPy, Pandas</li>
+      <li><strong>Database:</strong> SQL, My SQL, Basic MongoDB.</li>
+      <li><strong>Tools & Platforms:</strong> MS Office Suite (Word, PowerPoint), Git/GitHub (Basic), Cloud Computing (Familiarity with AWS/Azure concepts).</li>
+      <li><strong>Operating Systems:</strong> Linux, Windows</li>
+
+      </ul>
+    </div>
+  </div>
+
+  <!-- Experience -->
+  <div class="section" id="experience">
+    <h2>Experience</h2>
+    <div class="card">
+      <h3>Machine Learning Intern – Virtual Tech Services</h3>
+      <h4>May 5 2025 - June 5 2025</h4>
+      <ul>
+        <li>Developed ML classification models using SVM, Logistic Regression, and KNN.</li>
+        <li>Performed data preprocessing and feature engineering.</li>
+        <li>Built a Health Assistant ML system for predicting diseases.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Education -->
+  <div class="section" id="education">
+    <h2>Education</h2>
+    <div class="card timeline">
+
+      <div class="timeline-item">
+        <strong>Master of Computer Applications (MCA)</strong><br>
+        Queen Mary’s College – <em>Currently Pursuing</em>
+      </div>
+
+      <div class="timeline-item">
+        <strong>Bachelor of Computer Science</strong><br>
+        Quaid-E-Millath Government College for Women
+      </div>
+
+      <div class="timeline-item">
+        <strong>Diploma in Web Applications</strong><br>
+        Quaid-E-Millath Government College for Women
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Certificates -->
+  <div class="section" id="certificates">
+    <h2>Certificates</h2>
+    <div class="card">
+      <ul class="certificate-list">
+      <li>Certificate of Life Skill and Employability Skill – SIB</li>
+      <li>Certificate of Cyber Security – NASSCOM</li>
+      <li>Certificate from Pantech Learning for Data Analytics</li>
+      <li>MS-OFFICE under Naan Mudhalvan Course</li>
+      <li>Cloud Computing under NPTEL Online Certification</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Projects -->
+  <!-- Projects -->
+<div class="section" id="projects">
+  <h2>Projects</h2>
+  <div class="card">
+
+    <!-- Health Assistant -->
+    <div class="project-title">Health Assistant</div>
+    <div class="project-content">
+      <ul>
+        <li><strong>Project Goal:</strong> Built an ML-based app that predicts Diabetes, Parkinson’s, and Heart Disease.</li>
+
+        <li><strong>Role & Methodology:</strong> Managed full ML pipeline during internship.</li>
+
+        <li><strong>Data Pipeline:</strong>
+          <ul>
+            <li>Preprocessed datasets (missing values, normalization).</li>
+            <li>Train-test split and feature engineering.</li>
+          </ul>
+        </li>
+
+        <li><strong>Model Development:</strong>
+          <ul>
+            <li>SVM – Diabetes & Parkinson's Disease.</li>
+            <li>Logistic Regression – Heart Disease.</li>
+          </ul>
+        </li>
+
+        <li><strong>Evaluation & Tuning:</strong>
+          <ul>
+            <li>Accuracy, Precision, Recall, F1-score used.</li>
+            <li>Hyperparameter tuning using GridSearchCV.</li>
+          </ul>
+        </li>
+
+        <li><strong>Deployment:</strong>
+          <ul>
+            <li>Models saved via Pickle.</li>
+            <li>Interactive UI developed with Streamlit.</li>
+          </ul>
+        </li>
+
+        <li><strong>Tech Stack:</strong> Python, Pandas, NumPy, Scikit-learn, Streamlit.</li>
+      </ul>
+    </div>
+
+    <!-- Home Appliances E-Commerce -->
+    <div class="project-title">Home Appliances E-Commerce Application</div>
+    <div class="project-content">
+      <ul>
+        <li><strong>Overview:</strong> Developed a complete e-commerce platform using VB 6.0 & MS Access.</li>
+
+        <li><strong>Core Modules:</strong>
+          <ul>
+            <li>Customer & Seller Login + Registration.</li>
+            <li>Product browsing + Add to Cart + Checkout.</li>
+            <li>Secure payment (Debit, Credit, EMI).</li>
+            <li>Seller dashboard with Add Product module.</li>
+            <li>Order tracking & exchange/return system.</li>
+          </ul>
+        </li>
+
+        <li><strong>Tools:</strong> VB 6.0, MS Access.</li>
+
+        <li><strong>Future Enhancements:</strong>
+          <ul>
+            <li>Migrate to VB.NET.</li>
+            <li>IoT integration for smart appliance control.</li>
+            <li>AR for product visualization.</li>
+            <li>NLP-based voice support.</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Password Cracking Tool -->
+  <div class="project-title">Password Cracking on Kali Linux Operating System.</div>
+  <div class="project-content">
+  <ul>
+
+    <li><strong>Objective:</strong> Performed hands-on offensive security by recovering system passwords using standard penetration testing tools and techniques.</li>
+
+    <li><strong>Technical Skills Demonstrated:</strong>
+      <ul>
+        <li><strong>Environment & Tools:</strong> Used Kali Linux (penetration testing OS) and John-the-Ripper (industry-standard password cracking tool).</li>
+
+        <li><strong>System Analysis:</strong> Identified and accessed the <code>/etc/shadow</code> file, which stores hashed passwords (SHA-512, Blowfish, MD5).</li>
+
+        <li><strong>Attack Execution:</strong> Performed a Dictionary Attack using a custom wordlist (<code>wordlist.txt</code>) to recover passwords of multiple system users (e.g., root, shweta, elite).</li>
+
+        <li><strong>Hash Processing:</strong> Handled multiple hash formats (e.g., SHA512crypt) and executed the appropriate John-the-Ripper cracking modes.</li>
+      </ul>
+    </li>
+
+    <li><strong>Security & Countermeasures:</strong>
+      <ul>
+        <li>Implemented security recommendations: strong password creation using mixed characters.</li>
+        <li>Enforced minimum password length policies (14+ characters).</li>
+        <li>Avoided dictionary-based or personal-information passwords.</li>
+        <li>Recommended periodic password rotation.</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+
+  </div>
+</div>
+
+  <footer>
+    © 2025 Hemavathy S | Portfolio Website
+  </footer>
+
+  <script>
+    /* Toggle Side Panel */
+    const menuBtn = document.getElementById("menuBtn");
+    const sidePanel = document.getElementById("sidePanel");
+    const overlay = document.getElementById("overlay");
+    const navLinks = document.querySelectorAll(".nav-link");
+
+    menuBtn.onclick = () => {
+      sidePanel.classList.toggle("open");
+      overlay.classList.toggle("show");
+    };
+
+    overlay.onclick = () => {
+      sidePanel.classList.remove("open");
+      overlay.classList.remove("show");
+    };
+
+    navLinks.forEach(link => {
+      link.onclick = () => {
+        sidePanel.classList.remove("open");
+        overlay.classList.remove("show");
+      };
+    });
+
+    /* Project Collapsible */
+    document.querySelectorAll(".project-title").forEach(title => {
+      title.addEventListener("click", () => {
+        const content = title.nextElementSibling;
+
+        if (content.style.maxHeight) {
+          content.style.maxHeight = null;
+          content.classList.remove("open");
+        } else {
+          content.style.maxHeight = content.scrollHeight + 20 + "px";
+          content.classList.add("open");
+        }
+      });
+    });
+    // Download resume as PDF (using print-to-pdf)
+  document.getElementById("downloadResume").addEventListener("click", function () 
+  {
+  window.print();
+});
+
+ </script>
+
+</body>
+</html>
